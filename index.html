@@ -305,6 +305,7 @@ body {
     <p class="hint">支持 .xlsx / .xls / .csv 格式</p>
     <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" onchange="handleFile(event)">
     <p style="font-size:11px; color:#A0AEC0; margin-top:10px;">⚠️ CSV 文件如显示乱码，请先将文件另存为 UTF-8 编码后重新上传</p>
+    <div class="template-btn" onclick="event.stopPropagation(); downloadTemplate()">📥 下载名单模板</div>
   </div>
   <div id="uploadResult" style="display:none;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">
