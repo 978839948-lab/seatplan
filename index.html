@@ -302,9 +302,8 @@ body {
   <div class="upload-zone" id="uploadZone">
     <div class="upload-icon">📁</div>
     <p><strong>点击上传</strong> 或拖拽文件到这里</p>
-    <p class="hint">支持 .xlsx / .xls / .csv 格式</p>
-    <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" onchange="handleFile(event)">
-    <p style="font-size:11px; color:#A0AEC0; margin-top:10px;">⚠️ CSV 文件如显示乱码，请先将文件另存为 UTF-8 编码后重新上传</p>
+    <p class="hint">支持 .xlsx / .xls 格式</p>
+    <input type="file" id="fileInput" accept=".xlsx,.xls" onchange="handleFile(event)">
     <div class="template-btn" onclick="event.stopPropagation(); downloadTemplate()">📥 下载名单模板</div>
   </div>
   <div id="uploadResult" style="display:none;">
@@ -511,13 +510,7 @@ function handleFile(event) {
 
 function parseFile(file) {
   const ext = file.name.split('.').pop().toLowerCase();
-  if (ext === 'csv') {
-    Papa.parse(file, {
-      header: true, skipEmptyLines: true, encoding: 'UTF-8',
-      complete: results => { handleParseResult(results.data, results.meta.fields || []); },
-      error: err => { toast('CSV 解析失败: ' + err.message, 'error'); }
-    });
-  } else if (ext === 'xlsx' || ext === 'xls') {
+  if (ext === 'xlsx' || ext === 'xls') {
     const reader = new FileReader();
     reader.onload = function(e) {
       try {
@@ -536,7 +529,7 @@ function parseFile(file) {
     };
     reader.readAsArrayBuffer(file);
   } else {
-    toast('不支持的文件格式，请上传 .xlsx / .xls / .csv', 'error');
+    toast('不支持的文件格式，请上传 .xlsx / .xls', 'error');
   }
 }
 
